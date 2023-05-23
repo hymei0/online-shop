@@ -1,0 +1,13 @@
+
+.form {
+	width: 80%;
+	margin: 200rpx auto;
+}
+.title {
+	margin-top: 200rpx;
+	margin-bottom: 50rpx;
+	font-size: 50rpx;
+	color: royalblue;
+	text-align: center;
+}
+
