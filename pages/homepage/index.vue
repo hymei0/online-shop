@@ -2,6 +2,7 @@
 	<view>
 		<Carousel />
 		 <tabbar :list="tabList"></tabbar>
+		 <Announcement/>
 
 		
 	</view>
@@ -11,12 +12,14 @@
 <script>
 	import Carousel from '../components/carousel.vue'
 	import ShopCart from '../components/shopCar.vue'
+	import Announcement from '../components/announcement.vue'
 
 	export default {
 		name: 'HomePage',
 		components: {
 			Carousel,
-			ShopCart
+			ShopCart,
+			Announcement
 		},
 		data() {
 			return {
