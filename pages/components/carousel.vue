@@ -27,16 +27,16 @@
 						desc: "手抓饼",
 					},
 					{
-						url: "/static/carousel/手抓饼.png",
-						desc: "手抓饼",
+						url: "/static/carousel/淀粉肠.jpeg",
+						desc: "淀粉肠",
 					},
 					{
 						url: "/static/carousel/手抓饼.png",
 						desc: "手抓饼",
 					},
 					{
-						url: "/static/carousel/手抓饼.png",
-						desc: "手抓饼",
+						url: "/static/carousel/淀粉肠.jpeg",
+						desc: "淀粉肠",
 					}
 				],
 				dotStyle: [{
