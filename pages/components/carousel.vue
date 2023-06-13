@@ -23,19 +23,19 @@
 		data() {
 			return {
 				images: [{
-						url: "/static/carousel/手抓饼.png",
+						url: "/static/carousel/graspPancake.png",
 						desc: "手抓饼",
 					},
 					{
-						url: "/static/carousel/淀粉肠.jpeg",
+						url: "/static/carousel/starchySausage.jpeg",
 						desc: "淀粉肠",
 					},
 					{
-						url: "/static/carousel/手抓饼.png",
+						url: "/static/carousel/graspPancake.png",
 						desc: "手抓饼",
 					},
 					{
-						url: "/static/carousel/淀粉肠.jpeg",
+						url: "/static/carousel/starchySausage.jpeg",
 						desc: "淀粉肠",
 					}
 				],
