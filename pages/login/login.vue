@@ -1,17 +1,17 @@
 <template>
 	<view>
 
-		<!-- 200rpx=100px -->
+		
 		<view class="form">
 			<view class="title">登 录</view>
-			<uni-forms ref="form" :model="form" :rules="rules">
+			<uni-forms ref="form" :modelValue="loginForm" :rules="rules">
 
-				<uni-forms-item name="userphone">
-					<uni-easyinput prefixIcon="person" v-model="form.userphone" focus
+				<uni-forms-item name="phone">
+					<uni-easyinput prefixIcon="person" v-model="loginForm.phone" focus
 						placeholder="请输入手机号"></uni-easyinput>
 				</uni-forms-item>
 				<uni-forms-item name="password">
-					<uni-easyinput prefixIcon="locked" type="password" v-model="form.password" focus
+					<uni-easyinput prefixIcon="locked" type="password" v-model="loginForm.password" focus
 						placeholder="请输入密码"></uni-easyinput>
 				</uni-forms-item>
 			</uni-forms>
@@ -24,15 +24,17 @@
 		</view>
 	</view>
 </template>
+			 
 
-<script>
+ <script>
+import { request } from '@/utils/request.js'
 	export default {
 		data() {
 			return {
-				form: {},
+				loginForm: {},
 				rules: {
-					// 对userphone字段进行必填验证
-					userphone: {
+					// 对phone字段进行必填验证
+					phone: {
 						rules: [{
 							required: true,
 							errorMessage: '请输入电话',
@@ -58,55 +60,62 @@
 		methods: {
 			login() {
 				this.$refs.form.validate().then(res => {
-					this.request({url:'/user/login',method:"POST",data:this.form}).then(res=>{
-						if(res.code === '200'){
+					request({url:'/user/login',method:"POST",data:this.loginForm}).then(res=>{
+						console.log(res)
+						if(res.code === 200){
 							uni.showToast({
-								title: "登录成功"
+								title: res.msg
 							})
 							//存储用户的数据到 storage
-							uni.setStorage('user', data.data)
+							uni.setStorage('user', res.data)
 							//1.跳转页面
-							uni.navigateTo({
+							uni.switchTab({
 								url: '/pages/index/index'
+							})
+						}
+						if(res.code === 2001){
+							uni.showToast({
+								title: res.msg
 							})
 						}
 						
 					})
-					// const baseUrl = "http://localhost:9090/"
-					// uni.request({
-					// 	url: baseUrl + 'user/login',
-					// 	method: "POST",
-					// 	data: this.form,
-					// 	success: (res) => {
-					// 		console.log('login success:', res.code);
-					// 		// 在这里处理登录成功后的逻辑
-					// 		// ...
-					// 		const data = res.data;
-					// 		if (data.code !== 200) {
-					// 			uni.showToast({
-					// 				icon: "none",
-					// 				title: data.msg
-					// 			})
-					// 		} else {
-					// 			uni.showToast({
-					// 				title: "登录成功"
-					// 			})
-					// 			//存储用户的数据到 storage
-					// 			uni.setStorage('user', data.data)
-					// 			//1.跳转页面
-					// 			uni.navigateTo({
-					// 				url: '/pages/index/index'
-					// 			})
-					// 			// //2.跳转tarbar页面
-					// 			// uni.switchTab({
-					// 			// 	url:'/pages/index/index'
-					// 			// })
-					// 		}
-					// 	},
-					// 	fail: (err) => {
-					// 		console.log('login failed:', err);
-					// 	}
-					// });
+					
+					const baseUrl = "http://localhost:9090/"
+					uni.request({
+						url: baseUrl + 'user/login',
+						method: "POST",
+						data: this.loginForm,
+						success: (res) => {
+							console.log('login success:', res.code);
+							// 在这里处理登录成功后的逻辑
+							// ...
+							const data = res.data;
+							if (data.code !== 200) {
+								uni.showToast({
+									icon: "none",
+									title: data.msg
+								})
+							} else {
+								uni.showToast({
+									title: "登录成功"
+								})
+								//存储用户的数据到 storage
+								uni.setStorage('user', data.data)
+								//1.跳转页面
+								uni.navigateTo({
+									url: '/pages/index/index'
+								})
+								// //2.跳转tarbar页面
+								// uni.switchTab({
+								// 	url:'/pages/index/index'
+								// })
+							}
+						},
+						fail: (err) => {
+							console.log('login failed:', err);
+						}
+					});
 
 				}).catch(err => {
 					console.log('表单错误信息：', err);

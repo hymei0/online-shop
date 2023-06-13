@@ -1,0 +1,82 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/* TabBar 容器样式 */
+.tabbar {
+	  position: fixed;
+	  bottom: 0;
+	  width: 100%;
+	  height: 62rpx;
+	  background-color: #fff;
+	  border-top: 1px solid #eee;
+}
+	/* TabBar 中每个选项的样式 */
+.tabbar-item {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  justify-content: center;
+	  height: 100%;
+	  width: 25%;
+}
+	/* TabBar 中每个选项的图标样式 */
+.tabbar-item-icon {
+	  width: 32rpx;
+	  height: 32rpx;
+	  margin-bottom: 6rpx;
+}
+	/* TabBar 中每个选项的标题样式 */
+.tabbar-item-title {
+	  font-size: 15rpx;
+	  color: #777;
+}
+.tabbar .tabbar-item.active .tabbar-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+.tabbar .tabbar-item.active .tabbar-text {
+  color: #1296db;
+}
+
+

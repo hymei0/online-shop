@@ -16,7 +16,9 @@ export const request = ((options) => { //options是json对象
 						url: '/pages/login/login'
 					})
 					return
-				} else if (data.code !== '200') {
+				} else if(data.code=2001){
+					
+				}else if (data.code !== '200') {
 					uni.showToast({
 						icon: 'error',
 						title: '操作错误'
