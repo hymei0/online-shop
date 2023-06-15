@@ -1,151 +1,69 @@
 <template>
-  <view class="container">
-    <view class="nav-bar">
-      <text class="back-btn" @click="navigateBack">返回</text>
-      <text class="title">公告栏</text>
-    </view>
-
-    <view class="bulletin-container">
-      <scroll-view class="bulletin-scroll" scroll-y>
-        <view v-for="(bulletin, index) in bulletins" :key="index" class="card-container">
-          <u-card>
-            <u-list>
-              <u-cell :title="bulletin.title" :value="bulletin.time"></u-cell>
-            </u-list>
-            <div class="card-content">
-              <p>{{ bulletin.content }}</p>
-            </div>
-            <div class="card-footer">
-              <text class="more-btn" @click="goToDetail(index)">查看详情</text>
-            </div>
-          </u-card>
-        </view>
-      </scroll-view>
-    </view>
-  </view>
-</template>
-
-<script>
-export default {
-	name: 'Announcement',
-  data() {
-    return {
-      bulletins: [
-        {
-          title: "公告一",
-          time: "2023-06-12",
-          content: "这是第一条公告的内容。"
-        },
-        {
-          title: "公告二",
-          time: "2023-06-11",
-          content: "这是第二条公告的内容。"
-        },
-        {
-          title: "公告三",
-          time: "2023-06-10",
-          content: "这是第三条公告的内容。"
-        }
-      ]
-    };
-  },
-  methods: {
-    navigateBack() {
-      uni.navigateBack({
-        delta: 1
-      });
-    },
-    goToDetail(index) {
-      // 跳转到公告详情页
-    }
-  }
-};
-</script>
-
-<style>
-.container {
-  height: 100%;
-  background-color: #F5F5F5;
-}
-
-.nav-bar {
-  width: 100%;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.back-btn {
-  font-size: 16px;
-  color: #333;
-}
-
-.title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-}
-
-.bulletin-container {
-  margin: 20px;
-}
-
-.card-container {
-  margin-bottom: 20px;
-}
-
-.card-content {
-  padding: 10px;
-  font-size: 14px;
-  color: #666;
-}
-
-.card-footer {
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 10px;
-}
-
-.more-btn {
-  font-size: 14px;
-  color: #007AFF;
-}
-</style>
-
-
-
-
-
-
-
-
-
-<!-- <template>
 	<view>
-		<uni-card >
-			<text>这是一个带封面和操作栏的卡片示例，此示例展示了封面插槽和操作栏插槽的用法。</text>
-		</uni-card>
+		<uni-card  title="公告" extra="2023.06.14" :thumbnail="image">
+			<template v-slot:title>
+				<image :src="image" class="announ_image" />
+				<view class="my-card">
+					<image src="/static/announcement/line.png" class="lineleft_image" />
+					<view class="title1">公告</view>
+					<image src="/static/announcement/line.png" class="lineright_image" />
+				</view>
+				
+			</template>
+			<text slot="content">这里是内容</text>
+			<text slot="footer">这里是底部</text>
+			<text>这是一个通栏卡片 ，通栏没有外边距，左右会贴合父元素。</text>
 
+		</uni-card>
 	</view>
 </template>
 
 <script>
 	export default {
 		name: 'Announcement',
-		components: {},
 		data() {
 			return {
-			}
+				image: "/static/announcement/announcement.png"
+			};
 		},
-		onLoad() {},
-		methods: {
-		},
-	}
+		methods: {}
+	};
 </script>
 
 <style>
-</style> -->
+	.my-card {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.announ_image {
+		float: left;
+		width: 70rpx;
+		height: 70rpx;
+		margin-left: 0rpx;
+		margin-top: 50rpx;
+	}
+
+	.lineleft_image {
+		width: 150rpx;
+		height: 80rpx;
+		margin-left: 0rpx;
+	}
+
+	.title1 {
+		font-size: 16px;
+		color: #e5b267;
+		text-align: center;
+		margin-left: 5rpx;
+		width: 100rpx;
+		height: 80rpx;
+	}
+
+	.lineright_image {
+		/* float: right; */
+		width: 150rpx;
+		height: 80rpx;
+		margin-left: 5rpx;
+	}
+</style>
