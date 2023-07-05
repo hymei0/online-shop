@@ -10,3 +10,6 @@ unpackage/
 
 # 忽略所有的 .log 文件
 *.log
+
+# 忽略所有的.hbuilderx 文件
+.hbuilderx
