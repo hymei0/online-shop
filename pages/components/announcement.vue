@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-card  title="公告" extra="2023.06.14" :thumbnail="image">
+		<uni-card  >
 			<template v-slot:title>
 				<image :src="image" class="announ_image" />
 				<view class="my-card">
@@ -12,7 +12,7 @@
 			</template>
 			<text slot="content">这里是内容</text>
 			<text slot="footer">这里是底部</text>
-			<text>这是一个通栏卡片 ，通栏没有外边距，左右会贴合父元素。</text>
+			<text style="color: #e5b267;">这是一个通栏卡片 ，通栏没有外边距，左右会贴合父元素。</text>
 
 		</uni-card>
 	</view>
