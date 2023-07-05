@@ -1,10 +1,10 @@
 <template>
 	<view>
 		<Carousel />
-		 <tabbar :list="tabList"></tabbar>
-		 <Announcement/>
+		<tabbar :list="tabList"></tabbar>
+		<Announcement />
+		<OrderDishCard />
 
-		
 	</view>
 
 </template>
@@ -13,13 +13,15 @@
 	import Carousel from '../components/carousel.vue'
 	import ShopCart from '../components/shopCar.vue'
 	import Announcement from '../components/announcement.vue'
+	import OrderDishCard from '../components/orderDishCard.vue'
 
 	export default {
 		name: 'HomePage',
 		components: {
 			Carousel,
 			ShopCart,
-			Announcement
+			Announcement,
+			OrderDishCard
 		},
 		data() {
 			return {
