@@ -1,1 +1,0 @@
-<view><carousel vue-id="43f1829c-1" bind:__l="__l"></carousel><tabbar vue-id="43f1829c-2" list="{{tabList}}" bind:__l="__l"></tabbar></view>

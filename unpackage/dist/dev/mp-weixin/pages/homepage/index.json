@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "首页",
-  "usingComponents": {
-    "carousel": "/pages/components/carousel",
-    "shop-cart": "/pages/components/shopCar"
-  }
-}
