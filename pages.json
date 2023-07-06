@@ -12,14 +12,7 @@
 				"enablePullDownRefresh": false
 			}
 
-		}, {
-			"path": "pages/login/login1",
-			"style": {
-				"navigationBarTitleText": "登录",
-				"enablePullDownRefresh": false
-			}
-
-		},
+		}, 
 		{
 			"path": "pages/food/food",
 			"style": {
