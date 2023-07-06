@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-card  >
+		<uni-card>
 			<template v-slot:title>
 				<image :src="image" class="announ_image" />
 				<view class="my-card">
@@ -10,23 +10,60 @@
 				</view>
 				
 			</template>
-			<text slot="content">这里是内容</text>
-			<text slot="footer">这里是底部</text>
-			<text style="color: #e5b267;">这是一个通栏卡片 ，通栏没有外边距，左右会贴合父元素。</text>
-
+			<!-- <text style="color: #e5b267;" v-for="dot in dotsArray" :key="dot">{{ dot }}</text> -->
+			 <view style="justify-content: center;align-items: center;margin-left: 50rpx;">
+				 <div style="color: #e5b267;"  v-html="formattedString"></div>
+			 </view>
 		</uni-card>
 	</view>
 </template>
 
 <script>
+	import {
+		request
+	} from '@/utils/request.js'
 	export default {
 		name: 'Announcement',
 		data() {
 			return {
-				image: "/static/announcement/announcement.png"
+				image: "/static/announcement/announcement.png",
+				announcement: {},
+				dotsArray: [],
+				annoceContent: ""
 			};
 		},
-		methods: {}
+
+		methods: {
+			getAnnouncementInfo() {
+				request({
+					url: '/announcement/get-recent-announcement',
+					method: "GET"
+				}).then(res => {
+					if (res.code === 200) {
+						this.announcement = res.data;
+						// 将后端返回的字符串拆分成数组  
+						this.dotsArray = this.announcement.content.split(';')
+						this.annoceContent = this.announcement.content.split(";").join('.<br>')
+					}
+					if (res.code === 500) {
+						uni.showToast({
+							title: "服务器出错"
+						})
+					}
+				})
+
+			}
+		},
+		mounted() {
+			this.getAnnouncementInfo()
+		},
+		
+		computed: {
+		    formattedString() {
+		      // 将后端返回的字符串按照 '.' 进行拆分，并使用双大括号进行插值和连接
+		      return this.announcement.content.split(';').map(item => `<span>${item}</span><br>`).join('')
+		    }
+		  },
 	};
 </script>
 
