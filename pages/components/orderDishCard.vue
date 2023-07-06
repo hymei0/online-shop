@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
-		<view class="order-dish">
-			<view class="content">
+		<view class="order-dish" @click="onOrderDish">
+			<view class="content" >
 				<text>点餐</text>
 				<text class="clamp-text">在线点餐免排队</text>
 				<image class="order_image" src="/static/home/order.png"  /> 
@@ -26,7 +26,14 @@
 				
 			};
 		},
-		methods: {}
+		methods: {
+			onOrderDish(){
+				//跳转到点餐页面
+				uni.switchTab({
+					url: '/pages/food/food'
+				})
+			}
+		}
 	};
 </script>
 
