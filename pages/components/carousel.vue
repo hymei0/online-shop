@@ -5,7 +5,7 @@
 			:dots-styles="dotsStyles" field="content">
 			<swiper class="swiper-box" @change="change" :current="swiperDotIndex" :autoplay="true" :interval="2000">
 				<swiper-item v-for="(item, index) in images" :key="index">
-					<view class="swiper-item" :class="'swiper-item' + index">
+					<view class="swiper-item" >
 						<image :src="item.url" mode="widthFix"></image>
 						<!-- <text style="color: #fff; font-size: 32px;">{{index+1}}</text> -->
 					</view>
