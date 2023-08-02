@@ -5,7 +5,7 @@
 </template>
 
 <script>
-	import FoodType from './components/foodType.nvue'
+	import FoodType from './components/foodType.vue'
 	export default {
 		name: 'Food',
 		components: {

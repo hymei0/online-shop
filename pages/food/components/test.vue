@@ -39,19 +39,19 @@ export default {
         // 菜品数据
         {
           name: "宫保鸡丁",
-          image: "https://i.postimg.cc/JnGyZL7N/image.png",
+          image: "/static/images/gongbaoji.png",
           price: "28元",
           category: "热菜"
         },
         {
           name: "凉拌黄瓜",
-          image: "https://i.postimg.cc/JnGyZL7N/image.png",
+          image: "/static/images/liangbanhuanggua.png",
           price: "12元",
           category: "凉菜"
         },
         {
           name: "米饭",
-          image: "https://i.postimg.cc/JnGyZL7N/image.png",
+          image: "/static/images/mifan.png",
           price: "5元",
           category: "主食"
         }
@@ -71,7 +71,6 @@ export default {
   methods: {
     selectCategory(category) {
       // 选中菜品类别
-	  
       this.selectedCategory = category;
     }
   }
