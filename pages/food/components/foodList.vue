@@ -1,16 +1,12 @@
 <template>
 	<view>
-		<FoodType/>
+		
 	</view>
 </template>
 
 <script>
-	import FoodType from './components/foodType.nvue'
 	export default {
-		name: 'Food',
-		components: {
-		  FoodType
-		},
+		name:'FoodList',
 		data() {
 			return {
 				
