@@ -10,23 +10,24 @@
 		</scroll-view>
 
 		<view class="menu-list">
-			<view v-for="(dish, index) in filteredDishes" :key="index" class="dish-item" @onclick="addToShaopCar(dishId)">
+			<view v-for="(dish, index) in filteredDishes" :key="index" class="dish-item"
+				@onclick="addToShaopCar(dishId)">
 				<image :src="dish.picture1" class="dish-image" />
 				<view class="content">
 					<text class="dish-name">{{ dish.pname }}</text>
 					<text class="description" v-if="dish.description!=null">{{dish.description}}</text>
 					<view style="margin-top: 20rpx;display: flex;">
 						<text style="font: 20rpx; text-align: left;">￥{{dish.price}}</text>
-						<text v-if="dish.hasSnack===true" class="add-shop-car-button"  >+</text>
 						<view v-if="dish.hasSnack===false">
-							<button class="plus-btn" @click="addToCart">加入购物车</button>
-							      <text class="quantity">{{ quantity }}</text>
+							<text class="reduce">-</text>
+							<text class="quantity">{{ dish.num }}</text>
+							<text class="add">+</text>
 						</view>
-						 
+						<view v-if="dish.hasSnack===true">
+							<text class="plus-btn" @click="addToCart(dish.id)">选规格</text>
+						</view>
 					</view>
-					
 				</view>
-				
 			</view>
 			<view v-if="filteredDishes.length === 0" class="no-dishes">
 				暂无可展示的数据
@@ -43,31 +44,13 @@
 		name: 'FoodType',
 		data() {
 			return {
-				quantity:0,
+				shopcarData: [],
 				dishId: "",
 				disIds: [],
 				selectedCategoryId: "", // 当前选中的菜品类别
-				categories: ["热菜", "凉菜", "主食"], // 菜品类别列表
+				categories: [], // 菜品类别列表
 				dishes: [
 					// 菜品数据
-					{
-						name: "宫保鸡丁",
-						image: "https://i.postimg.cc/JnGyZL7N/image.png",
-						price: "28元",
-						category: "热菜"
-					},
-					{
-						name: "凉拌黄瓜",
-						image: "https://i.postimg.cc/JnGyZL7N/image.png",
-						price: "12元",
-						category: "凉菜"
-					},
-					{
-						name: "米饭",
-						image: "https://i.postimg.cc/JnGyZL7N/image.png",
-						price: "5元",
-						category: "主食"
-					}
 				]
 			};
 		},
@@ -79,6 +62,9 @@
 				} else {
 					return this.dishes;
 				}
+			},
+			quantity() {
+				return this.$store.state.shopCarData.list[0].num;
 			}
 		},
 		methods: {
@@ -94,7 +80,7 @@
 			getCategory() {
 				request({
 					url: '/food/food-category/tree',
-					method: "GET"
+					method: "GET",
 				}).then(res => {
 					if (res.code === 200) {
 						this.categories = res.data.list;
@@ -114,6 +100,17 @@
 				}).then(res => {
 					if (res.code === 200) {
 						this.dishes = res.data.list;
+						//匹配购物车里面各菜品的数量
+						this.dishes.forEach((e,index)=>{
+							this.shopcarData.forEach((es,indexs)=>{
+								if(e.id===es.productId){
+									e.num=es.num;
+								}
+								else{
+									e.num=0;
+								}
+							})
+						})
 					}
 					if (res.code === 500) {
 						uni.showToast({
@@ -124,6 +121,7 @@
 			}
 		},
 		mounted() {
+			this.shopcarData = this.$store.state.shopCarData.list
 			this.getCategory()
 			this.getDishes()
 		},
@@ -167,7 +165,7 @@
 	}
 
 	.content {
-		display:grid;
+		display: grid;
 		margin-left: 0rpx;
 		/* 根据实际需要设置标题和描述文字与图片的间距 */
 	}
@@ -190,47 +188,49 @@
 		font-weight: bold;
 	}
 
-	.add-shop-car-button {	  
-		    width: 30rpx;
-		    height: 30rpx;
-		    border-radius: 50%;
-		    background-color: #FFDEAD;
-		    color: white;
-		    font-size: 20rpx;
-		    justify-content: right;
-		    align-items: center;
-			text-align: center;
-			margin-left: 200rpx;
+	.add {
+		width: 100rpx;
+		height: 30rpx;
+/* 		border-radius: 50%;
+		color: #FFDEAD; */
+		font-size: 30rpx;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		margin-left: 10rpx;
 	}
-
-/* 	.dish-add-shop-car.active {
-		color: #FFDEAD;
+	.reduce{
+		margin-left: 200rpx;
 	}
- */
+	.quantity{
+		/* color: #000; */
+		font-weight: bold;
+		margin-left: 10rpx;
+		font-size: 25rpx;
+	}
 	.no-dishes {
 		text-align: center;
 		color: #999;
 		margin-top: 40rpx;
 	}
-	
+
 	.description {
 		margin-top: 8rpx;
-	  font-size: 20rpx; 
-	  color: #999;
+		font-size: 20rpx;
+		color: #999;
 	}
-	.price{
-		
-	}
-	
+
+	.price {}
+
 	.plus-btn {
-	  width: 30rpx;
-	  height: 30rpx;
-	  background-color: #FFDEAD;
-	  color: white;
-	  font-size: 20rpx;
-	  display: flex;
-	  justify-content: center;
-	  align-items: center;
-	  margin-left: 200rpx;
-	  }
+		width: 80rpx;
+		height: 30rpx;
+		background-color: #FFDEAD;
+		color: white;
+		font-size: 20rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-left: 200rpx;
+	}
 </style>
