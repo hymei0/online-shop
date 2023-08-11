@@ -1,5 +1,5 @@
-// const BASE_URL = 'https://hym.mhyt.fun'
-const BASE_URL = 'http://localhost:9090'
+ // const BASE_URL = 'https://hym.mhyt.fun'
+const BASE_URL = 'http://hym.mhyt.fun:9090'
 
 export const request = ((options) => { //options是json对象
 	return new Promise((resolve, reject) => {
