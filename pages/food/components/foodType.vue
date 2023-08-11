@@ -17,7 +17,12 @@
 					<text class="description" v-if="dish.description!=null">{{dish.description}}</text>
 					<view style="margin-top: 20rpx;display: flex;">
 						<text style="font: 20rpx; text-align: left;">￥{{dish.price}}</text>
-						<text class="add-shop-car-button"  >+</text> 
+						<text v-if="dish.hasSnack===true" class="add-shop-car-button"  >+</text>
+						<view v-if="dish.hasSnack===false">
+							<button class="plus-btn" @click="addToCart">加入购物车</button>
+							      <text class="quantity">{{ quantity }}</text>
+						</view>
+						 
 					</view>
 					
 				</view>
@@ -38,6 +43,7 @@
 		name: 'FoodType',
 		data() {
 			return {
+				quantity:0,
 				dishId: "",
 				disIds: [],
 				selectedCategoryId: "", // 当前选中的菜品类别
@@ -215,4 +221,16 @@
 	.price{
 		
 	}
+	
+	.plus-btn {
+	  width: 30rpx;
+	  height: 30rpx;
+	  background-color: #FFDEAD;
+	  color: white;
+	  font-size: 20rpx;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  margin-left: 200rpx;
+	  }
 </style>

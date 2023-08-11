@@ -2,6 +2,7 @@
 const BASE_URL = 'http://hym.mhyt.fun:9090'
 
 export const request = ((options) => { //options是json对象
+
 	return new Promise((resolve, reject) => {
 		uni.request({
 			url: BASE_URL + options.url,
@@ -9,7 +10,7 @@ export const request = ((options) => { //options是json对象
 			header: {
 				token: uni.getStorageSync('user') ? uni.getStorageSync('user').username : ''
 			},
-			data: options.data || {},
+			data: options.data|| {},
 			success: (res) => {
 				const data = res.data;
 				if (data.code === 401) { //401无权限
