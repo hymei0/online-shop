@@ -19,7 +19,7 @@
 			<view style="margin:40rpx 0">
 				<button type="primary" @click="login">登 录</button>
 			</view>
-			<navigator url="/pages/index/index" style="margin:40rpx 0; color:deepskyblue">首页</navigator>
+			<navigator url="pages/homepage/index" style="margin:40rpx 0; color:deepskyblue">首页</navigator>
 
 		</view>
 	</view>
@@ -88,42 +88,6 @@ import { request } from '@/utils/request.js'
 						
 					})
 					
-					// const baseUrl = "http://localhost:9090/"
-					// uni.request({
-					// 	url: baseUrl + 'user/login',
-					// 	method: "POST",
-					// 	data: this.loginForm,
-					// 	success: (res) => {
-					// 		console.log('login success:', res.code);
-					// 		// 在这里处理登录成功后的逻辑
-					// 		// ...
-					// 		const data = res.data;
-					// 		if (data.code !== 200) {
-					// 			uni.showToast({
-					// 				icon: "none",
-					// 				title: data.msg
-					// 			})
-					// 		} else {
-					// 			uni.showToast({
-					// 				title: "登录成功"
-					// 			})
-					// 			//存储用户的数据到 storage
-					// 			uni.setStorage('user', data.data)
-					// 			//1.跳转页面
-					// 			uni.navigateTo({
-					// 				url: '/pages/index/index'
-					// 			})
-					// 			// //2.跳转tarbar页面
-					// 			// uni.switchTab({
-					// 			// 	url:'/pages/index/index'
-					// 			// })
-					// 		}
-					// 	},
-					// 	fail: (err) => {
-					// 		console.log('login failed:', err);
-					// 	}
-					// });
-
 				}).catch(err => {
 					console.log('表单错误信息：', err);
 				});

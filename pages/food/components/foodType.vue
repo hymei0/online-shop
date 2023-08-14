@@ -31,7 +31,10 @@
 			</view>
 			<view v-if="filteredDishes.length === 0" class="no-dishes">
 				暂无可展示的数据
+				<button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">huoqu</button>
 			</view>
+			
+
 		</view>
 	</view>
 </template>
