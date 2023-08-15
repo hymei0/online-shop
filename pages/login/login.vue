@@ -19,7 +19,7 @@
 			<view style="margin:40rpx 0">
 				<button type="primary" @click="login">登 录</button>
 			</view>
-			<navigator url="pages/homepage/index" style="margin:40rpx 0; color:deepskyblue">首页</navigator>
+			<navigator url="/pages/homepage/index" style="margin:40rpx 0; color:deepskyblue" open-type='switchTab'>首页</navigator>
 
 		</view>
 	</view>
