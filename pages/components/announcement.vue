@@ -8,12 +8,11 @@
 					<view class="title1">公告</view>
 					<image src="/static/announcement/line.png" class="lineright_image" />
 				</view>
-				
+
 			</template>
-			<!-- <text style="color: #e5b267;" v-for="dot in dotsArray" :key="dot">{{ dot }}</text> -->
-			 <view style="justify-content: center;align-items: center;margin-left: 50rpx;">
-				 <div style="color: #e5b267;"  v-html="formattedString"></div>
-			 </view>
+			<view style="justify-content: center;align-items: center;margin-left: 50rpx;">
+				<div style="color: #e5b267;" v-html="formattedString"></div>
+			</view>
 		</uni-card>
 	</view>
 </template>
@@ -28,7 +27,6 @@
 			return {
 				image: "/static/announcement/announcement.png",
 				announcement: {},
-				dotsArray: [],
 				annoceContent: ""
 			};
 		},
@@ -42,8 +40,7 @@
 					if (res.code === 200) {
 						this.announcement = res.data;
 						// 将后端返回的字符串拆分成数组  
-						this.dotsArray = this.announcement.content.split(';')
-						this.annoceContent = this.announcement.content.split(";").join('.<br>')
+						// this.annoceContent = this.announcement.content.split(";").join('.<br>')
 					}
 					if (res.code === 500) {
 						uni.showToast({
@@ -52,18 +49,21 @@
 					}
 				})
 
-			}
+			},
+
 		},
 		mounted() {
 			this.getAnnouncementInfo()
 		},
-		
+
 		computed: {
-		    formattedString() {
-		      // 将后端返回的字符串按照 '.' 进行拆分，并使用双大括号进行插值和连接
-		      return this.announcement.content.split(';').map(item => `<span>${item}</span><br>`).join('')
-		    }
-		  },
+			formattedString() {
+				// 将后端返回的字符串按照 ';' 进行拆分，并使用双大括号进行插值和连接
+				return this.announcement.content.split(';').map(item => `<span>${item}</span><br>`).join('')
+			}
+
+		}
+
 	};
 </script>
 
