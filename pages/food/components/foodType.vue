@@ -1,41 +1,45 @@
 <template>
-	<view class="menu-container">
-		<scroll-view class="sidebar" scroll-y="true">
-			<view v-for="(category, index) in categories" :key="index" class="category-item"
-				:class="{ active: selectedCategoryId === category.id }" @click="selectCategory(category.id)">
+	<view>
+		<view class="menu-container">
+			<scroll-view class="sidebar" scroll-y="true">
+				<view v-for="(category, index) in categories" :key="index" class="category-item"
+					:class="{ active: selectedCategoryId === category.id }" @click="selectCategory(category.id)">
 
-				<image :src="category.icon" class="category-image" />
-				<text>{{ category.name }}</text>
-			</view>
-		</scroll-view>
+					<image :src="category.icon" class="category-image" />
+					<text>{{ category.name }}</text>
+				</view>
+			</scroll-view>
 
-		<view class="menu-list">
-			<view v-for="(dish, index) in filteredDishes" :key="index" class="dish-item"
-				@onclick="addToShaopCar(dishId)">
-				<image :src="dish.picture1" class="dish-image" />
-				<view class="content">
-					<text class="dish-name">{{ dish.pname }}</text>
-					<text class="description" v-if="dish.description!=null">{{dish.description}}</text>
-					<view style="margin-top: 20rpx;display: flex;">
-						<text style="font: 20rpx; text-align: left;">￥{{dish.price}}</text>
-						<view v-if="dish.hasSnack===false">
-							<text class="reduce">-</text>
-							<text class="quantity">{{ dish.num }}</text>
-							<text class="add">+</text>
-						</view>
-						<view v-if="dish.hasSnack===true">
-							<text class="plus-btn" @click="addToCart(dish.id)">选规格</text>
+			<view class="menu-list">
+				<view v-for="(dish, index) in filteredDishes" :key="index" class="dish-item"
+					@onclick="addToShaopCar(dishId)">
+					<image :src="dish.picture1" class="dish-image" />
+					<view class="content">
+						<text class="dish-name">{{ dish.pname }}</text>
+						<text class="description" v-if="dish.description!=null">{{dish.description}}</text>
+						<view style="margin-top: 20rpx;display: flex;">
+							<text style="font: 20rpx; text-align: left;">￥{{dish.price}}</text>
+							<view v-if="dish.hasSnack===false">
+								<text class="reduce">-</text>
+								<text class="quantity">{{ dish.num }}</text>
+								<text class="add">+</text>
+							</view>
+							<view v-if="dish.hasSnack===true">
+								<text class="plus-btn" @click="getSnack(dish.id)">选规格</text>
+							</view>
 						</view>
 					</view>
 				</view>
+				<view v-if="filteredDishes.length === 0" class="no-dishes">
+					暂无可展示的数据
+				</view>
 			</view>
-			<view v-if="filteredDishes.length === 0" class="no-dishes">
-				暂无可展示的数据
-				<button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">huoqu</button>
-			</view>
-			
-
 		</view>
+		<!--  -->
+		<view v-if="shopcarData.length != 0">
+			<ShopCar></ShopCar>
+		</view>
+
 	</view>
 </template>
 
@@ -43,8 +47,12 @@
 	import {
 		request
 	} from '@/utils/request.js'
+	import ShopCar from '../../components/shopCar.vue'
 	export default {
 		name: 'FoodType',
+		components: {
+			ShopCar
+		},
 		data() {
 			return {
 				shopcarData: [],
@@ -58,6 +66,7 @@
 			};
 		},
 		computed: {
+
 			filteredDishes() {
 				// 根据选中的菜品类别过滤菜品数据
 				if (this.selectedCategoryId) {
@@ -71,14 +80,18 @@
 			}
 		},
 		methods: {
+
 			selectCategory(categoryId) {
 				// 选中菜品类别
 				this.selectedCategoryId = categoryId;
 			},
-			addToShaopCar(dishId) {
+			addToShopCar(dishId) {
 				rhis.dishId = dishId;
 				this.dishIds.add(dishId);
 				console.log(this.dishIds);
+			},
+			getSnack(dishId) {
+
 			},
 			getCategory() {
 				request({
@@ -104,13 +117,12 @@
 					if (res.code === 200) {
 						this.dishes = res.data.list;
 						//匹配购物车里面各菜品的数量
-						this.dishes.forEach((e,index)=>{
-							this.shopcarData.forEach((es,indexs)=>{
-								if(e.id===es.productId){
-									e.num=es.num;
-								}
-								else{
-									e.num=0;
+						this.dishes.forEach((e, index) => {
+							this.shopcarData.forEach((es, indexs) => {
+								if (e.id === es.productId) {
+									e.num = es.num;
+								} else {
+									e.num = 0;
 								}
 							})
 						})
@@ -194,7 +206,7 @@
 	.add {
 		width: 100rpx;
 		height: 30rpx;
-/* 		border-radius: 50%;
+		/* 		border-radius: 50%;
 		color: #FFDEAD; */
 		font-size: 30rpx;
 		justify-content: center;
@@ -202,15 +214,18 @@
 		text-align: center;
 		margin-left: 10rpx;
 	}
-	.reduce{
+
+	.reduce {
 		margin-left: 200rpx;
 	}
-	.quantity{
+
+	.quantity {
 		/* color: #000; */
 		font-weight: bold;
 		margin-left: 10rpx;
 		font-size: 25rpx;
 	}
+
 	.no-dishes {
 		text-align: center;
 		color: #999;
@@ -236,4 +251,6 @@
 		align-items: center;
 		margin-left: 200rpx;
 	}
+
+	
 </style>

@@ -1,100 +1,153 @@
+<!-- <template>
+
+	<view class="shop-cart-view">
+		<button @click="open">打开弹窗</button>
+		<uni-badge class="uni-badge-left-margin" :text="8" absolute="rightTop" :offset="[-3, -3]" size="small">
+			<view class="box"><text class="box-text">右上</text></view>
+		</uni-badge>
+		<uni-popup ref="popup" background-color="#fff" class="shop-car" type="bottom">底部弹出 Popup</uni-popup>
+
+	</view>
+</template>
+<script>
+	export default {
+		name: 'ShopCar',
+		data() {
+			return {
+				show: true
+			}
+		},
+		methods: {
+			open() {
+				// 通过组件定义的ref调用uni-popup方法 ,如果传入参数 ，type 属性将失效 ，仅支持 ['top','left','bottom','right','center']
+				this.$refs.popup.open('bottom')
+			},
+			change(e) {
+				this.show = e.show
+			}
+		}
+	}
+</script>
+<style>
+	.shop-cart-view {
+		background-color: #FFDEAD;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+
+	}
+
+	.shop-car {
+		background-color: #fff;
+	}
+</style> -->
+
 <template>
-	<view class="uni-container">
-		
-		<uni-section title="自定义用法" type="line">
-			<uni-goods-nav :fill="true" :options="options" :button-group="customButtonGroup" @click="onClick"
-				@buttonClick="buttonClick" />
-		</uni-section>
-	
+	<view class="container">
+		<view class="shop-cart-view">
+			<uni-popup v-model="popupVisible" class="custom-popup">34242</uni-popup>
+				<view class="shop-cart-card">
+					<image @click="open" src="../../static/food/购物车.png" class="shop-cart-image"></image>
+					<uni-badge @click="open" class="uni-badge-left-margin" :text="8" absolute="rightTop"
+						:offset="[-3, -3]" size="small" position="right top"></uni-badge>
+					<text class="shop-cart-sum-price">合计￥</text>
+					<text class="shop-cart-price">12228.88</text>
+					<button class="shop-cart-computbtu">下单预定</button>
+				</view>
+				<uni-popup ref="popup" background-color="#fff" class="custom-popup">底部弹出 Popup</uni-popup>
+		</view>
+		<!-- <uni-collapse ref="collapse" v-model="value" @change="change">
+			<uni-collapse-item>
+				<view class="content">
+					<text class="text">{{content}}</text>
+				</view>
+			</uni-collapse-item>
+		</uni-collapse> -->
 	</view>
 </template>
 
 <script>
 	export default {
-		name: 'ShopCart',
-		components: {},
+		name: 'ShopCar',
 		data() {
 			return {
-				options: [{
-					icon: 'chat',
-					text: '客服'
-				}, {
-					icon: 'shop',
-					text: '店铺',
-					info: 2,
-					infoBackgroundColor: '#007aff',
-					infoColor: "#f5f5f5"
-				}, {
-					icon: 'cart',
-					text: '购物车',
-					info: 2
-				}],
-				buttonGroup: [{
-						text: '加入购物车',
-						backgroundColor: 'linear-gradient(90deg, #FFCD1E, #FF8A18)',
-						color: '#fff'
-					},
-					{
-						text: '立即购买',
-						backgroundColor: 'linear-gradient(90deg, #FE6035, #EF1224)',
-						color: '#fff'
-					}
-				],
-				customButtonGroup: [{
-						text: '加入购物车',
-						backgroundColor: 'linear-gradient(90deg, #1E83FF, #0053B8)',
-						color: '#fff'
-					},
-					{
-						text: '立即购买',
-						backgroundColor: 'linear-gradient(90deg, #60F3FF, #088FEB)',
-						color: '#fff'
-					}
-				],
-				customButtonGroup1: [{
-					text: '立即购买',
-					backgroundColor: 'linear-gradient(90deg, #FE6035, #EF1224)',
-					color: '#fff'
-				}]
-			}
+				popupVisible:false,
+				value: ['0'],
+				accordionVal: '1',
+				content: '折叠内容主体，可自定义内容及样式，点击按钮修改内容使高度发生变化。',
+				extraIcon: {
+					color: '#4cd964',
+					size: '26',
+					type: 'image'
+				},
+			};
 		},
-		onLoad() {},
 		methods: {
-			onClick(e) {
-				uni.showToast({
-					title: `点击${e.content.text}`,
-					icon: 'none'
-				})
+			open() {
+				// 通过组件定义的ref调用uni-popup方法 ,如果传入参数 ，type 属性将失效 ，仅支持 ['top','left','bottom','right','center']
+				this.$refs.popup.open("bottom: 50rpx;")
+				// this.popupVisible=true;
 			},
-			buttonClick(e) {
-				console.log(e)
-				this.options[2].info++
-			}
-		}
-	}
+		},
+	};
 </script>
 
-<style lang="scss">
-	.example-body {
-		padding: 0;
-		/* #ifndef APP-NVUE */
-		display: block;
-		/* #endif */
+<style>
+	.shop-cart-view {
+		background-color: white;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		border-top-width: 3rpx;
+		border-top-color: aliceblue;
 	}
 
-	.goods-carts {
-		/* #ifndef APP-NVUE */
+	.shop-cart-card {
 		display: flex;
-		/* #endif */
-		flex-direction: column;
-		position: fixed;
-		left: 0;
-		right: 0;
-		/* #ifdef H5 */
-		left: var(--window-left);
-		right: var(--window-right);
-		/* #endif */
-		bottom: 0;
+		padding-top: 10rpx;
+		width: 100%;
+	}
+
+	.shop-cart-image {
+		width: 80rpx;
+		height: 80rpx;
+		padding-left: 10rpx;
+		padding-bottom: 10rpx;
+	}
+
+	.shop-cart-sum-price {
+		margin-left: 200rpx;
+		padding-top: 20rpx;
+		font-size: 30rpx;
+	}
+
+	.shop-cart-price {
+		margin-left: 5rpx;
+		padding-top: 20rpx;
+		font-size: 35rpx;
+		color: #FA8072;
+		font-weight: bold;
+	}
+
+	.shop-cart-computbtu {
+		width: 26%;
+		height: 40%;
+		font-size: 30rpx;
+		/* color: #f9b653; */
+		background-color: #FFDEAD;
+		font-weight: bold;
+	}
+
+	.uni-badge-left-margin {
+		margin-left: 10rpx;
+	}
+
+	.custom-popup {
+		/* 自定义样式 */
+
+		bottom: 50rpx;
+		/* 设置弹出位置距离顶部的距离 */
+		right: 20rpx;
+		/* 设置弹出位置距离右边的距离 */
 	}
 </style>
-
