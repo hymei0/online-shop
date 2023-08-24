@@ -46,46 +46,37 @@
 	<view class="container">
 		<view class="shop-cart-view">
 			<uni-popup v-model="popupVisible" class="custom-popup">34242</uni-popup>
-				<view class="shop-cart-card">
-					<image @click="open" src="../../static/food/购物车.png" class="shop-cart-image"></image>
-					<uni-badge @click="open" class="uni-badge-left-margin" :text="8" absolute="rightTop"
-						:offset="[-3, -3]" size="small" position="right top"></uni-badge>
-					<text class="shop-cart-sum-price">合计￥</text>
-					<text class="shop-cart-price">12228.88</text>
-					<button class="shop-cart-computbtu">下单预定</button>
-				</view>
-				<uni-popup ref="popup" background-color="#fff" class="custom-popup">底部弹出 Popup</uni-popup>
+			<view class="shop-cart-card">
+				<image @click="open" src="../../static/food/购物车.png" class="shop-cart-image"></image>
+				<uni-badge @click="open" class="uni-badge-left-margin" :text="dishShopSum" absolute="rightTop"
+					:offset="[-3, -3]" size="small" position="right top"></uni-badge>
+				<text class="shop-cart-sum-price">合计￥</text>
+				<text class="shop-cart-price">12228.88</text>
+				<button class="shop-cart-computbtu">下单预定</button>
+			</view>
+			<uni-popup ref="popup" background-color="#fff" class="custom-popup">
+				<text>
+					底部弹出 Popup
+				</text>
+			</uni-popup>
 		</view>
-		<!-- <uni-collapse ref="collapse" v-model="value" @change="change">
-			<uni-collapse-item>
-				<view class="content">
-					<text class="text">{{content}}</text>
-				</view>
-			</uni-collapse-item>
-		</uni-collapse> -->
 	</view>
 </template>
 
 <script>
 	export default {
 		name: 'ShopCar',
+		props: ['dishShopSum'],
 		data() {
 			return {
-				popupVisible:false,
-				value: ['0'],
-				accordionVal: '1',
-				content: '折叠内容主体，可自定义内容及样式，点击按钮修改内容使高度发生变化。',
-				extraIcon: {
-					color: '#4cd964',
-					size: '26',
-					type: 'image'
-				},
+				// dishShopSum:1,
+
 			};
 		},
 		methods: {
 			open() {
 				// 通过组件定义的ref调用uni-popup方法 ,如果传入参数 ，type 属性将失效 ，仅支持 ['top','left','bottom','right','center']
-				this.$refs.popup.open("bottom: 50rpx;")
+				this.$refs.popup.open("bottom")
 				// this.popupVisible=true;
 			},
 		},
@@ -98,8 +89,8 @@
 		position: absolute;
 		bottom: 0;
 		width: 100%;
-		border-top-width: 3rpx;
-		border-top-color: aliceblue;
+		/* border-top: 3rpx solid; */
+		/* border-top-color: aliceblue; */
 	}
 
 	.shop-cart-card {

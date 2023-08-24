@@ -37,7 +37,7 @@
 		</view>
 		<!--  -->
 		<view v-if="shopcarData.length != 0">
-			<ShopCar></ShopCar>
+			<ShopCar :dishShopSum="dishShopSum"></ShopCar>
 		</view>
 
 	</view>
@@ -56,6 +56,7 @@
 		data() {
 			return {
 				shopcarData: [],
+				dishShopSum:0,
 				dishId: "",
 				disIds: [],
 				selectedCategoryId: "", // 当前选中的菜品类别
@@ -121,6 +122,7 @@
 							this.shopcarData.forEach((es, indexs) => {
 								if (e.id === es.productId) {
 									e.num = es.num;
+									this.dishShopSum=this.dishShopSum+es.num
 								} else {
 									e.num = 0;
 								}
