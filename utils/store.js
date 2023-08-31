@@ -25,7 +25,7 @@ const store = new Vuex.Store({
 				url: '/food/shop-car',
 				method: "GET",
 				data: {
-					phone: uni.getStorageSync('user').phone
+					phone: uni.getStorageSync('user')?.phone
 				}
 			}).then(res => {
 				if (res.code === 200) {

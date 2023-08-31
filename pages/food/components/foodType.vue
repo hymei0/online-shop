@@ -12,7 +12,7 @@
 
 			<view class="menu-list">
 				<view v-for="(dish, index) in filteredDishes" :key="index" class="dish-item"
-					@onclick="addToShaopCar(dishId)">
+					>
 					<image :src="dish.picture1" class="dish-image" />
 					<view class="content">
 						<text class="dish-name">{{ dish.pname }}</text>
@@ -20,9 +20,9 @@
 						<view style="margin-top: 20rpx;display: flex;">
 							<text style="font: 20rpx; text-align: left;">￥{{dish.price}}</text>
 							<view v-if="dish.hasSnack===false">
-								<text class="reduce">-</text>
-								<text class="quantity">{{ dish.num }}</text>
-								<text class="add">+</text>
+								<text class="reduce" @click="reduceFromShopCar(dish)">-</text>
+								<text class="quantity" >{{ dish.num }}</text>
+								<text class="add" @click="addToShopCar(dish)">+</text>
 							</view>
 							<view v-if="dish.hasSnack===true">
 								<text class="plus-btn" @click="getSnack(dish.id)">选规格</text>
@@ -76,9 +76,6 @@
 					return this.dishes;
 				}
 			},
-			quantity() {
-				return this.$store.state.shopCarData.list[0].num;
-			}
 		},
 		methods: {
 
@@ -86,10 +83,27 @@
 				// 选中菜品类别
 				this.selectedCategoryId = categoryId;
 			},
-			addToShopCar(dishId) {
-				rhis.dishId = dishId;
-				this.dishIds.add(dishId);
-				console.log(this.dishIds);
+			addToShopCar(dish) {
+				this.$forceUpdate(); // 手动强制更新视图
+				dish.num++;
+				const foundShopcarData=this.shopcarData.find(item=>item.productId===dish.id);
+				if(foundShopcarData){
+					this.shopcarData.find(item=>item.productId===dish.id).num=dish.num;
+				}else{
+					this.shopcarData.push({username:uni.getStorageSync('user').username,
+					userphone:uni.getStorageSync('user').phone,
+					productId:dish.id,productName:dish.pname,num:dish.num,details:dish.pname+" ×"+dish.num})
+				}
+			},
+			reduceFromShopCar(dish){
+				this.$forceUpdate(); // 手动强制更新视图
+				if(dish.num>0){
+					dish.num--;
+					// this.shopcarData.find(item=>item.productId===dish.id).num=dish.num;
+					const foundShopcarData1=this.shopcarData.find(item=>item.productId===dish.id);
+					foundShopcarData1.num=dish.num;
+					foundShopcarData1.details=dish.pname+" ×"+dish.num
+				}
 			},
 			getSnack(dishId) {
 
@@ -141,6 +155,7 @@
 			this.shopcarData = this.$store.state.shopCarData.list
 			this.getCategory()
 			this.getDishes()
+			
 		},
 	};
 </script>
@@ -219,6 +234,7 @@
 
 	.reduce {
 		margin-left: 200rpx;
+		font-size: 35rpx;
 	}
 
 	.quantity {
