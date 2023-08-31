@@ -1,7 +1,7 @@
 import App from './App'
 import store from './utils/store.js'
 
-store.dispatch('fetchshopCarData') // 发起异步请求获取后端数据
+
 
 // #ifndef VUE3
 import Vue from 'vue'
@@ -20,6 +20,10 @@ app.$mount()
 // #ifdef VUE3
 import { createSSRApp } from 'vue'
 export function createApp() {
+	if (!uni.getStorageSync('token')) {
+	  uni.redirectTo({
+	    url: '/pages/login/login'
+	  })
   const app = createSSRApp(App)
   return {
     app
