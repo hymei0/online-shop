@@ -20,10 +20,6 @@ app.$mount()
 // #ifdef VUE3
 import { createSSRApp } from 'vue'
 export function createApp() {
-	if (!uni.getStorageSync('token')) {
-	  uni.redirectTo({
-	    url: '/pages/login/login'
-	  })
   const app = createSSRApp(App)
   return {
     app

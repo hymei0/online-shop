@@ -9,23 +9,23 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 	state: {
-		shopCarData: null ,// 初始化为 null
-		 isLogin: false
+		shopCarData: null, // 初始化为 null
+		isLogin: false
 	},
 	mutations: {
 		setshopCarData(state, data) {
 			state.shopCarData = data;
 		},
-		 login(state) {
-		      state.isLogin = true
-		    },
-		    logout(state) {
-		      state.isLogin = false
-		    }
+		login(state) {
+			state.isLogin = true
+		},
+		logout(state) {
+			state.isLogin = false
+		}
 	},
-	 getters: {
-	    isLogin: state => state.isLogin
-	  },
+	getters: {
+		isLogin: state => state.isLogin
+	},
 	actions: {
 		fetchshopCarData({
 			commit
